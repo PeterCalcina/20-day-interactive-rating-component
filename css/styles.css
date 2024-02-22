@@ -1,0 +1,345 @@
+/* -----------------
+Tabla de contenidos:
+--------------------
+1. Fuente ................ 11
+2. Variables ............. 17
+3. Estilos generales ..... 32
+-------------------- 
+*/
+
+
+/* ----- Fuente ----- */
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+/* ----- Variables ----- */
+:root {
+  /* Colores primarios */
+  --orange: hsl(25, 97%, 53%);
+  
+  /* Colores neutrales */
+  --white: hsl(0, 0%, 100%);
+  --light-grey: hsl(217, 12%, 63%);
+  --medium-grey: hsl(216, 12%, 54%);
+  --dark-blue: hsl(213, 19%, 18%);
+  --dark-grey-blue: hsl(210, 21%, 15%);
+  --very-dark-blue: hsl(216, 12%, 8%);
+  
+  /* Tipografia */
+  --font-size-paragraph: 15px;
+  --font-family: 'Overpass', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+}
+
+
+/* ----------------------------- */
+/* ----- Estilos generales ----- */
+/* ----------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-paragraph);
+  color: var(--light-grey);
+  background-color: var(--very-dark-blue);
+}
+
+.alert_modal {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 20px;
+  border-radius: 25px;
+  background-color: var(--orange);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.alert_modal p {
+  font-size: 18px;
+  color: var(--white);
+  text-align: center;
+}
+
+.alert_modal.display_alert {
+  opacity: 1;
+}
+
+.card {
+  position: relative;
+  width: 410px;
+  height: 400px;
+}
+
+.card .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--dark-grey-blue);
+  backface-visibility: hidden;
+  overflow: hidden;
+  transition: transform 1s ease;
+}
+
+.card .face.front {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.card .face.back {
+  transform: perspective(1000px) rotateY(180deg);
+}
+
+.card .front.perspective_active {
+  transform: perspective(1000px) rotateY(180deg);
+}
+
+.card .back.perspective_active {
+  transform: perspective(1000px) rotateY(360deg);
+}
+
+.card .face.front .img_container {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: var(--dark-blue);
+}
+
+.card .face.front .title {
+  margin-top: 30px;
+  font-size: 24px;
+  color: var(--white);
+}
+
+.card .face.front p {
+  font-size: 16px;
+}
+
+.card .face.front .rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0;
+}
+
+.card .face.front .rating .btn {
+  width: 50px;
+  height: 50px;
+  font-family: var(--font-family);
+  font-size: 17px;
+  line-height: normal;
+  color: var(--light-grey);
+  border: none;
+  border-radius: 50%;
+  background-color: var(--dark-blue);
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.card .face.front .rating .btn:hover {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.card .face.front .rating .btn.selected {
+  background-color: var(--medium-grey);
+  color: var(--white);
+}
+
+.card .face.front .btn_submit {
+  width: 100%;
+  padding: 15px 0;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 1px;
+  color: var(--white);
+  border: none;
+  border-radius: 25px;
+  background-color: var(--orange);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card .face.front .btn_submit:hover {
+  background-color: var(--white);
+  color: var(--orange);
+}
+
+
+.card .face.back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.card .face.back .rate_selected {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 7px 15px;
+  border-radius: 25px;
+  color: var(--orange);
+  background-color: var(--dark-blue);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card .face.back .rate_selected:hover {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.card .face.back .thx {
+  margin-top: 30px;
+  font-size: 29px;
+  color: var(--white);
+}
+
+.card .face.back p {
+  font-size: 15.5px;
+  text-align: center;
+}
+
+.card .face.back.perspective_active .img_container {
+  animation: img_animation 1s ease;
+  animation-delay: .2s;
+}
+
+.card .face.back.perspective_active .rate_selected {
+  animation: rate_selected_animation 2.5s ease;
+  animation-delay: .3s;
+}
+
+.card .face.back.perspective_active .thx {
+  animation: thx_animation 1s ease;
+  animation-delay: .3s;
+}
+
+.card .face.back.perspective_active p {
+  animation: paragraph 1s ease;
+  animation-delay: .3s;
+}
+
+@keyframes img_animation {
+  0% { transform: translateY(-100%); }
+  100% { transform: translate(0) }
+}
+
+@keyframes rate_selected_animation {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes thx_animation {
+  0% { transform: translateX(-100%); }
+  100% { transform: translate(0) }
+}
+
+@keyframes paragraph {
+  0% { transform: translateX(100%); }
+  100% { transform: translate(0) }
+}
+
+@media (width < 769px) {
+  .alert_modal {
+    width: max-content;
+    padding: 15px 20px;
+  }
+
+  .alert_modal p {
+    font-size: 16px;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .card .face.front .title {
+    font-size: 22px;
+  }
+
+  .card .face.front p {
+    font-size: 15px;
+  }
+}
+
+@media (width < 376px) {
+  .alert_modal {
+    width: max-content;
+    padding: 10px 15px;
+  }
+  .alert_modal p {
+    font-size: 14px;
+  }
+
+  .card {
+    width: 90%;
+    height: 350px;
+  }
+
+  .card .face {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card .face.front .img_container {
+    width: 40px;
+    height: 40px;
+  }
+
+  .card .face.front .title {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+
+  .card .face.front p {
+    font-size: 14px;
+  }
+
+  .card .face.front .rating {
+    padding: 20px 0;
+  }
+
+  .card .face.front .rating .btn {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .card .face.front .btn_submit {
+    font-size: 14px;
+  }
+
+  .card .face.back {
+    gap: 5px;
+  }
+
+  .card .face.back .rate_selected {
+    font-size: 14px;
+  }
+
+  .card .face.back .thx {
+    font-size: 25px;
+  }
+
+  .card .face.back p {
+    font-size: 13px;
+  }
+}
